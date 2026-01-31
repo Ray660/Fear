@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dmacns3n0gjki"]
+
+[ext_resource type="Texture2D" uid="uid://bacdlbbgy1v4g" path="res://assets/images/backgroud.png" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://c6a77fke3ufh5" path="res://Player/scarecrow.tscn" id="2_qxrlw"]
+
+[node name="Node2D" type="Node2D" unique_id=1106548023]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1458150955]
+position = Vector2(14, 2)
+texture = ExtResource("1_ebmjs")
+metadata/_edit_lock_ = true
+
+[node name="scarecrow" parent="Sprite2D" unique_id=381234912 instance=ExtResource("2_qxrlw")]
+position = Vector2(-14, -2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1640367791]
+position = Vector2(11, 2)
+offset = Vector2(-6.1, 0)
+zoom = Vector2(6.673, 6.85)
+metadata/_edit_lock_ = true

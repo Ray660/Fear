@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c6a77fke3ufh5"]
+
+[ext_resource type="Texture2D" uid="uid://b5wjl0htir3ek" path="res://assets/images/player.png" id="1_02vjq"]
+[ext_resource type="Script" uid="uid://wmcpiwk8w5tl" path="res://Scripts/scarecrow.gd" id="1_oufxn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02vjq"]
+size = Vector2(4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oufxn"]
+atlas = ExtResource("1_02vjq")
+region = Rect2(1, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7qj1v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oufxn")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="scarecrow" type="CharacterBody2D" unique_id=381234912]
+script = ExtResource("1_oufxn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185142899]
+position = Vector2(0.65, 0.575)
+shape = SubResource("RectangleShape2D_02vjq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1255888105]
+position = Vector2(0.7499787, 0.7499974)
+scale = Vector2(0.14062633, 0.14062515)
+sprite_frames = SubResource("SpriteFrames_7qj1v")
+animation = &"idle"
+frame_progress = 0.4593705
