@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://ca05c4cah5one"]
+
+[ext_resource type="Texture2D" uid="uid://bnxgx4gjij3vg" path="res://assets/images/Enemy.png" id="1_2t044"]
+
+[sub_resource type="GDScript" id="GDScript_2pb1h"]
+script/source = "extends Area2D
+
+@export var move_speed: float = 100.0
+var player: Node2D
+
+func _ready():
+	add_to_group(\"Enemy\")
+	player = get_tree().get_nodes_in_group(\"Player\")[0] if get_tree().get_nodes_in_group(\"Player\") else null
+
+func _physics_process(delta):
+	pass
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2pb1h"]
+radius = 13.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mrd3w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2t044")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="Area2D" unique_id=1443727045]
+script = SubResource("GDScript_2pb1h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1993987645]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_2pb1h")
+
+[node name="Virus" type="AnimatedSprite2D" parent="." unique_id=1223958597]
+sprite_frames = SubResource("SpriteFrames_mrd3w")

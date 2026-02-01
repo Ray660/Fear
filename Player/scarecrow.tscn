@@ -1,36 +1,106 @@
 [gd_scene format=3 uid="uid://c6a77fke3ufh5"]
 
-[ext_resource type="Texture2D" uid="uid://b5wjl0htir3ek" path="res://assets/images/player.png" id="1_02vjq"]
 [ext_resource type="Script" uid="uid://wmcpiwk8w5tl" path="res://Scripts/scarecrow.gd" id="1_oufxn"]
+[ext_resource type="Texture2D" uid="uid://bim3lkkxhw6vs" path="res://assets/images/cell_demo.png" id="2_oufxn"]
+[ext_resource type="PackedScene" uid="uid://cpcbiq27lqd7b" path="res://Player/gun.tscn" id="3_7qj1v"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_02vjq"]
-size = Vector2(4, 4)
+[sub_resource type="CircleShape2D" id="CircleShape2D_oufxn"]
+radius = 8.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oufxn"]
-atlas = ExtResource("1_02vjq")
-region = Rect2(1, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qj1v"]
+atlas = ExtResource("2_oufxn")
+region = Rect2(8, 8, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7qj1v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oufxn")
+"texture": SubResource("AtlasTexture_7qj1v")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
+[sub_resource type="GDScript" id="GDScript_7qj1v"]
+resource_name = "Gun"
+script/source = "extends Node2D
+
+@export var orbit_radius: float = 10.0
+@export var orbit_speed: float = 2.0
+@export var move_speed: float = 30.0
+@export var 初始角度: float = 0.0
+var player: Node2D
+var target_enemy: Node2D = null
+var target_angle: float = 0.0
+var current_angle: float = 0.0
+
+func _ready():
+	# 找到玩家节点
+	player = get_parent()
+	if not player:
+		push_error(\"OrbitBody must be a child of Player!\")
+		return
+
+func update_target_enemy(enemy: Node2D):
+	target_enemy = enemy
+
+func _process(delta):
+	if not player:
+		return
+	
+	# 计算目标角度
+	calculate_target_angle(delta)
+	
+	# 平滑移动到目标角度
+	update_orbit_position(delta)
+	
+	# 更新旋转
+	update_rotation()
+
+func calculate_target_angle(delta):
+	if target_enemy and is_instance_valid(target_enemy):
+		# 计算从玩家指向敌人的方向向量
+		var direction_to_enemy = (target_enemy.global_position - player.global_position).normalized()
+		# 计算敌人相对于玩家的角度
+		var enemy_angle = atan2(direction_to_enemy.y, direction_to_enemy.x)
+		target_angle = enemy_angle
+	else:
+		# 没有敌人时继续环绕
+		target_angle += orbit_speed * delta
+
+func update_orbit_position(delta):
+	# 平滑插值到目标角度
+	var angle_diff = fmod(target_angle - current_angle + PI, TAU) - PI
+	current_angle += angle_diff * move_speed * delta
+	
+	# 基于玩家位置计算环绕物位置
+	var offset = Vector2(cos(current_angle), sin(current_angle)) * orbit_radius
+	global_position = player.global_position + offset
+
+func update_rotation():
+	if target_enemy and is_instance_valid(target_enemy):
+		# 朝向敌人
+		look_at(target_enemy.global_position)
+		rotate(初始角度)
+	else:
+		# 朝向运动方向（切线方向）
+		rotation = current_angle + 初始角度
+"
+
 [node name="scarecrow" type="CharacterBody2D" unique_id=381234912]
 script = ExtResource("1_oufxn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185142899]
-position = Vector2(0.65, 0.575)
-shape = SubResource("RectangleShape2D_02vjq")
+shape = SubResource("CircleShape2D_oufxn")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1255888105]
-position = Vector2(0.7499787, 0.7499974)
-scale = Vector2(0.14062633, 0.14062515)
+[node name="cell" type="AnimatedSprite2D" parent="." unique_id=1255888105]
 sprite_frames = SubResource("SpriteFrames_7qj1v")
 animation = &"idle"
 frame_progress = 0.4593705
+
+[node name="gun" parent="cell" unique_id=815225791 instance=ExtResource("3_7qj1v")]
+position = Vector2(11, 4.7683716e-07)
+rotation = 0.0
+script = SubResource("GDScript_7qj1v")
+"初始角度" = 3.9

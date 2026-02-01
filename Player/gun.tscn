@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cpcbiq27lqd7b"]
+
+[ext_resource type="Texture2D" uid="uid://dbuvg0o64a22o" path="res://assets/images/gund.png" id="1_1bc6a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1bc6a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_1bc6a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="gun" type="AnimatedSprite2D" unique_id=815225791]
+rotation = 3.9269907
+sprite_frames = SubResource("SpriteFrames_1bc6a")
