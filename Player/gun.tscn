@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cpcbiq27lqd7b"]
 
 [ext_resource type="Texture2D" uid="uid://dbuvg0o64a22o" path="res://assets/images/gund.png" id="1_1bc6a"]
+[ext_resource type="Script" uid="uid://cgk4qwepuyno8" path="res://Player/gun.gd" id="2_6acd1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1bc6a"]
 animations = [{
@@ -14,5 +15,13 @@ animations = [{
 }]
 
 [node name="gun" type="AnimatedSprite2D" unique_id=815225791]
+z_index = 1
 rotation = 3.9269907
 sprite_frames = SubResource("SpriteFrames_1bc6a")
+script = ExtResource("2_6acd1")
+
+[node name="Timer" type="Timer" parent="." unique_id=367725195]
+wait_time = 0.517
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

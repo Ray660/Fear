@@ -1,106 +1,69 @@
 [gd_scene format=3 uid="uid://c6a77fke3ufh5"]
 
 [ext_resource type="Script" uid="uid://wmcpiwk8w5tl" path="res://Scripts/scarecrow.gd" id="1_oufxn"]
-[ext_resource type="Texture2D" uid="uid://bim3lkkxhw6vs" path="res://assets/images/cell_demo.png" id="2_oufxn"]
+[ext_resource type="Texture2D" uid="uid://cy60uhqkg244e" path="res://assets/images/cell_demo_ALL.png" id="2_7qj1v"]
 [ext_resource type="PackedScene" uid="uid://cpcbiq27lqd7b" path="res://Player/gun.tscn" id="3_7qj1v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oufxn"]
 radius = 8.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7qj1v"]
-atlas = ExtResource("2_oufxn")
-region = Rect2(8, 8, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_607hx"]
+atlas = ExtResource("2_7qj1v")
+region = Rect2(0, 0, 320, 320)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_7qj1v"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajlw1"]
+atlas = ExtResource("2_7qj1v")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtirt"]
+atlas = ExtResource("2_7qj1v")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s17km"]
+atlas = ExtResource("2_7qj1v")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2byt4"]
+atlas = ExtResource("2_7qj1v")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_arvwr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7qj1v")
+"texture": SubResource("AtlasTexture_607hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajlw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtirt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s17km")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2byt4")
 }],
 "loop": true,
-"name": &"idle",
-"speed": 5.0
+"name": &"new_animation",
+"speed": 10.0
 }]
-
-[sub_resource type="GDScript" id="GDScript_7qj1v"]
-resource_name = "Gun"
-script/source = "extends Node2D
-
-@export var orbit_radius: float = 10.0
-@export var orbit_speed: float = 2.0
-@export var move_speed: float = 30.0
-@export var 初始角度: float = 0.0
-var player: Node2D
-var target_enemy: Node2D = null
-var target_angle: float = 0.0
-var current_angle: float = 0.0
-
-func _ready():
-	# 找到玩家节点
-	player = get_parent()
-	if not player:
-		push_error(\"OrbitBody must be a child of Player!\")
-		return
-
-func update_target_enemy(enemy: Node2D):
-	target_enemy = enemy
-
-func _process(delta):
-	if not player:
-		return
-	
-	# 计算目标角度
-	calculate_target_angle(delta)
-	
-	# 平滑移动到目标角度
-	update_orbit_position(delta)
-	
-	# 更新旋转
-	update_rotation()
-
-func calculate_target_angle(delta):
-	if target_enemy and is_instance_valid(target_enemy):
-		# 计算从玩家指向敌人的方向向量
-		var direction_to_enemy = (target_enemy.global_position - player.global_position).normalized()
-		# 计算敌人相对于玩家的角度
-		var enemy_angle = atan2(direction_to_enemy.y, direction_to_enemy.x)
-		target_angle = enemy_angle
-	else:
-		# 没有敌人时继续环绕
-		target_angle += orbit_speed * delta
-
-func update_orbit_position(delta):
-	# 平滑插值到目标角度
-	var angle_diff = fmod(target_angle - current_angle + PI, TAU) - PI
-	current_angle += angle_diff * move_speed * delta
-	
-	# 基于玩家位置计算环绕物位置
-	var offset = Vector2(cos(current_angle), sin(current_angle)) * orbit_radius
-	global_position = player.global_position + offset
-
-func update_rotation():
-	if target_enemy and is_instance_valid(target_enemy):
-		# 朝向敌人
-		look_at(target_enemy.global_position)
-		rotate(初始角度)
-	else:
-		# 朝向运动方向（切线方向）
-		rotation = current_angle + 初始角度
-"
 
 [node name="scarecrow" type="CharacterBody2D" unique_id=381234912]
 script = ExtResource("1_oufxn")
+detection_radius = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185142899]
 shape = SubResource("CircleShape2D_oufxn")
 
 [node name="cell" type="AnimatedSprite2D" parent="." unique_id=1255888105]
-sprite_frames = SubResource("SpriteFrames_7qj1v")
-animation = &"idle"
-frame_progress = 0.4593705
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_arvwr")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.965282
 
-[node name="gun" parent="cell" unique_id=815225791 instance=ExtResource("3_7qj1v")]
-position = Vector2(11, 4.7683716e-07)
-rotation = 0.0
-script = SubResource("GDScript_7qj1v")
-"初始角度" = 3.9
+[node name="gun" parent="." unique_id=815225791 instance=ExtResource("3_7qj1v")]
+position = Vector2(10.6, 0)
+rotation = -2.3561945

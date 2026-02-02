@@ -10,7 +10,7 @@ var nearest_enemy: Node2D = null
 func _ready():
 	# 创建环绕物
 	orbit_body = find_child("gun")
-	
+	add_to_group("Player")
 	# 设置玩家检测区域
 	setup_player_detection_area()
 
@@ -30,7 +30,7 @@ func setup_player_detection_area():
 	detection_area.area_entered.connect(_on_body_entered)
 	detection_area.area_exited.connect(_on_body_exited)
 	
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	velocity = Input.get_vector("left","right","up","down") * move_speed
 	move_and_slide()
 
