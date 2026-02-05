@@ -3,3 +3,4 @@
 /android/
 *.svg
 *.import
+*.DS_Store
