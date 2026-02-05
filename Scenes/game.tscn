@@ -6,6 +6,16 @@
 
 [node name="Node2D" type="Node2D" unique_id=1106548023]
 script = ExtResource("1_wrm1d")
+difficulty_stages = Array[Dictionary]([{
+"time_limit": 5.0,
+"wait_time": 2.0
+}, {
+"time_limit": 10.0,
+"wait_time": 1.5
+}, {
+"time_limit": inf,
+"wait_time": 1.0
+}])
 
 [node name="background" type="Sprite2D" parent="." unique_id=1458150955]
 position = Vector2(14, 2)
