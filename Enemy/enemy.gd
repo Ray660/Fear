@@ -7,7 +7,7 @@ extends Area2D
 var velocity = Vector2.ZERO
 var player: Node2D
 
-func _ready():
+func _ready():	
 	add_to_group("Enemy")
 	player = get_tree().get_nodes_in_group("Player")[0] if get_tree().get_nodes_in_group("Player") else null
 	
