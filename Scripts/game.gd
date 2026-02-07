@@ -23,18 +23,26 @@ extends Node2D
 
 func gen_enemy():
 	var player = get_tree().get_nodes_in_group("Player")[0] if get_tree().get_nodes_in_group("Player") else null
-	var enemy = preload("res://Enemy/enemy.tscn").instantiate()
+	var enemy = preload("res://Enemy/Enemy.tscn").instantiate()
 	var angle = randf_range(0, TAU)
 	var random_dir = Vector2(cos(angle), sin(angle))
 	enemy.position = player.position + (random_dir * 敌人生成范围)
 	find_child("background").add_child(enemy)
 
+func gen_fastEnemy():
+	var player = get_tree().get_nodes_in_group("Player")[0] if get_tree().get_nodes_in_group("Player") else null
+	var enemy = preload("res://Enemy/fast_enemy.tscn").instantiate()
+	var angle = randf_range(0, TAU)
+	var random_dir = Vector2(cos(angle), sin(angle))
+	enemy.position = player.position + (random_dir * 敌人生成范围)
+	find_child("background").add_child(enemy)
 
 func _on_timer_ge_enemy_timeout() -> void:
 	
 	if get_node_count_in_group("Enemy") < max_enemy_count:
 		enemy_gentime_increase()
 		gen_enemy()
+		gen_fastEnemy()
 
 
 func get_node_count_in_group(group_name: String) -> int:

@@ -17,7 +17,7 @@ func _ready():
 func setup_player_detection_area():
 	var detection_area = Area2D.new()
 	detection_area.name = "PlayerDetectionArea"
-
+	detection_area.visible = false
 	var collision_shape = CollisionShape2D.new()
 	var circle_shape = CircleShape2D.new()
 	circle_shape.radius = detection_radius
@@ -42,7 +42,7 @@ func _physics_process(delta: float) -> void:
 		orbit_body.update_target_enemy(nearest_enemy)
 
 func _on_body_entered(body):
-	if body.is_in_group("Enemy"):
+	if body.is_in_group("Enemy") and body.is_alive:
 		if not body in enemies_in_range:
 			enemies_in_range.append(body)
 
@@ -62,18 +62,20 @@ func update_nearest_enemy():
 	var closest_enemy = null
 
 	for enemy in enemies_in_range:
-		var distance = global_position.distance_to(enemy.global_position)
-		if distance < closest_distance:
-			closest_distance = distance
-			closest_enemy = enemy
+		if enemy.is_alive:
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance < closest_distance:
+				closest_distance = distance
+				closest_enemy = enemy
 	
 	nearest_enemy = closest_enemy
 
 
-func _draw():
+#func _draw():
+	#pass
 	# 绘制玩家检测范围
-	draw_circle(Vector2.ZERO, detection_radius, Color(0, 1, 0, 0.1))
-
-	# 绘制指向最近敌人的线
-	if nearest_enemy:
-		draw_line(Vector2.ZERO, to_local(nearest_enemy.global_position), Color(1, 0, 0, 0.7), 3)
+	#draw_circle(Vector2.ZERO, detection_radius, Color(0, 1, 0, 0.1))
+#
+	## 绘制指向最近敌人的线
+	#if nearest_enemy:
+		#draw_line(Vector2.ZERO, to_local(nearest_enemy.global_position), Color(1, 0, 0, 0.7), 3)

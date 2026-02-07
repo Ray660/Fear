@@ -4,7 +4,7 @@ extends Node2D
 @export var orbit_speed: float = 2.0
 @export var move_speed: float = 30.0
 @export var 初始角度: float = 3.9
-
+@export var 发射间隔: float = 0.5
 
 var player: Node2D
 var target_enemy: Node2D = null
@@ -12,8 +12,8 @@ var target_angle: float = 0.0
 var current_angle: float = 0.0
 
 func _ready():
-	
-	
+	var Timer = find_child("Timer")
+	Timer.wait_time = 发射间隔
 	# 找到玩家节点
 	player = get_parent()
 	if not player:
@@ -71,6 +71,7 @@ func _on_timer_timeout() -> void:
 		var 子弹 = preload("res://Player/bullet.tscn").instantiate()
 		子弹.global_position = global_position
 		子弹.get_enemy(target_enemy)
+		子弹.name = "bullet"
 		get_tree().current_scene.add_child(子弹)
 
 	

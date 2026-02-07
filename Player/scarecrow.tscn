@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c6a77fke3ufh5"]
 
 [ext_resource type="Script" uid="uid://wmcpiwk8w5tl" path="res://Scripts/scarecrow.gd" id="1_oufxn"]
-[ext_resource type="Texture2D" uid="uid://cy60uhqkg244e" path="res://assets/images/cell_demo_ALL.png" id="2_7qj1v"]
+[ext_resource type="Texture2D" uid="uid://bp3a0jx2waqpq" path="res://assets/images/cell_demo2-Sheet.png" id="2_7qj1v"]
 [ext_resource type="PackedScene" uid="uid://cpcbiq27lqd7b" path="res://Player/gun.tscn" id="3_7qj1v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oufxn"]
@@ -9,23 +9,11 @@ radius = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_607hx"]
 atlas = ExtResource("2_7qj1v")
-region = Rect2(0, 0, 320, 320)
+region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ajlw1"]
 atlas = ExtResource("2_7qj1v")
-region = Rect2(320, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vtirt"]
-atlas = ExtResource("2_7qj1v")
-region = Rect2(640, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s17km"]
-atlas = ExtResource("2_7qj1v")
-region = Rect2(960, 0, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2byt4"]
-atlas = ExtResource("2_7qj1v")
-region = Rect2(1280, 0, 320, 320)
+region = Rect2(256, 0, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_arvwr"]
 animations = [{
@@ -35,15 +23,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ajlw1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vtirt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s17km")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2byt4")
 }],
 "loop": true,
 "name": &"new_animation",
@@ -55,6 +34,7 @@ script = ExtResource("1_oufxn")
 detection_radius = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1185142899]
+visible = false
 shape = SubResource("CircleShape2D_oufxn")
 
 [node name="cell" type="AnimatedSprite2D" parent="." unique_id=1255888105]
