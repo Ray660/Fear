@@ -19,6 +19,7 @@ z_index = 1
 rotation = 3.9269907
 sprite_frames = SubResource("SpriteFrames_1bc6a")
 script = ExtResource("2_6acd1")
+"发射间隔" = 20.0
 
 [node name="Timer" type="Timer" parent="." unique_id=367725195]
 wait_time = 0.513

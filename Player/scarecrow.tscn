@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://wmcpiwk8w5tl" path="res://Scripts/scarecrow.gd" id="1_oufxn"]
 [ext_resource type="Texture2D" uid="uid://bp3a0jx2waqpq" path="res://assets/images/cell_demo2-Sheet.png" id="2_7qj1v"]
 [ext_resource type="PackedScene" uid="uid://cpcbiq27lqd7b" path="res://Player/gun.tscn" id="3_7qj1v"]
+[ext_resource type="PackedScene" uid="uid://ek275g6xo0yg" path="res://Enemy/sword.tscn" id="4_607hx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oufxn"]
 radius = 8.0
@@ -47,3 +48,6 @@ frame_progress = 0.965282
 [node name="gun" parent="." unique_id=815225791 instance=ExtResource("3_7qj1v")]
 position = Vector2(10.6, 0)
 rotation = -2.3561945
+
+[node name="sword" parent="." unique_id=1558496153 instance=ExtResource("4_607hx")]
+position = Vector2(10, 0)

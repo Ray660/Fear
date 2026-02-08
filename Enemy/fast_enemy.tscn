@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://cja06eio6ao3"]
 
 [ext_resource type="Script" uid="uid://7khdy7wc3ly5" path="res://Enemy/fast_enemy.gd" id="1_a2oy4"]
-[ext_resource type="Texture2D" uid="uid://bnxgx4gjij3vg" path="res://assets/images/Enemy.png" id="2_mmy00"]
 [ext_resource type="Texture2D" uid="uid://cg5rfiabtxrvj" path="res://assets/images/enemy_dead-Sheet.png" id="2_xwi12"]
+[ext_resource type="Texture2D" uid="uid://cn31km8nu5s3d" path="res://assets/images/EBOLA-Sheet.png" id="3_mmy00"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xwi12"]
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_mmy00"]
+points = PackedVector2Array(-9.5238085, -3.0952377, -14.285713, 4.0476184, -7.1428566, 8.809523, 0, 6.4285707, 4.7619042, -7.8571424, 9.5238085, -3.0952377, 11.90476, -5.47619, 2.3809521, -12.619046, -4.7619042, -0.7142857)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jhcp8"]
 atlas = ExtResource("2_xwi12")
@@ -25,6 +26,22 @@ region = Rect2(768, 0, 256, 256)
 [sub_resource type="AtlasTexture" id="AtlasTexture_l85fy"]
 atlas = ExtResource("2_xwi12")
 region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwi12"]
+atlas = ExtResource("3_mmy00")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp3xo"]
+atlas = ExtResource("3_mmy00")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ie0o"]
+atlas = ExtResource("3_mmy00")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kwra2"]
+atlas = ExtResource("3_mmy00")
+region = Rect2(768, 0, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jhcp8"]
 animations = [{
@@ -50,7 +67,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_mmy00")
+"texture": SubResource("AtlasTexture_xwi12")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rp3xo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ie0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kwra2")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,16 +84,18 @@ animations = [{
 }]
 
 [node name="fastEnemy" type="Area2D" unique_id=354167610]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.35, 0.35)
 script = ExtResource("1_a2oy4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=595247212]
 visible = false
 position = Vector2(0, 1)
 scale = Vector2(1.4, 1.4)
-shape = SubResource("CircleShape2D_xwi12")
+shape = SubResource("ConvexPolygonShape2D_mmy00")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1423935081]
+scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_jhcp8")
-animation = &"death"
+animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.7117702
