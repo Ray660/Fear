@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cja06eio6ao3"]
+
+[ext_resource type="Script" uid="uid://7khdy7wc3ly5" path="res://Enemy/fast_enemy.gd" id="1_a2oy4"]
+[ext_resource type="Texture2D" uid="uid://bnxgx4gjij3vg" path="res://assets/images/Enemy.png" id="2_mmy00"]
+[ext_resource type="Texture2D" uid="uid://cg5rfiabtxrvj" path="res://assets/images/enemy_dead-Sheet.png" id="2_xwi12"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwi12"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhcp8"]
+atlas = ExtResource("2_xwi12")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilv3s"]
+atlas = ExtResource("2_xwi12")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8syo4"]
+atlas = ExtResource("2_xwi12")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2qy26"]
+atlas = ExtResource("2_xwi12")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l85fy"]
+atlas = ExtResource("2_xwi12")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jhcp8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhcp8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilv3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8syo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2qy26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l85fy")
+}],
+"loop": false,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mmy00")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="fastEnemy" type="Area2D" unique_id=354167610]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_a2oy4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=595247212]
+visible = false
+position = Vector2(0, 1)
+scale = Vector2(1.4, 1.4)
+shape = SubResource("CircleShape2D_xwi12")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1423935081]
+sprite_frames = SubResource("SpriteFrames_jhcp8")
+animation = &"death"
+autoplay = "idle"

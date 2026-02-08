@@ -27,8 +27,9 @@ position = Vector2(-14, -2)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1640367791]
 position = Vector2(11, 2)
+scale = Vector2(2, 2)
 offset = Vector2(-6.1, 0)
-zoom = Vector2(6.673, 6.85)
+zoom = Vector2(3, 3.08)
 
 [node name="Timer_geEnemy" type="Timer" parent="." unique_id=201194877]
 wait_time = 2.0

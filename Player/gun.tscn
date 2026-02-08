@@ -21,7 +21,7 @@ sprite_frames = SubResource("SpriteFrames_1bc6a")
 script = ExtResource("2_6acd1")
 
 [node name="Timer" type="Timer" parent="." unique_id=367725195]
-wait_time = 0.517
+wait_time = 0.513
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
